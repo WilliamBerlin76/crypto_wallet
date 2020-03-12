@@ -1,8 +1,9 @@
 import React from 'react';
+import ListTransactions from './listTransactions'
 
 const Wallet = () => {
     return(
-        <h2>CryptoWallet</h2>
+        <ListTransactions/>
     )
 }
 
