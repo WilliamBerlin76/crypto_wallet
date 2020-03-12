@@ -1,9 +1,9 @@
 import React from 'react';
-import ListTransactions from './listTransactions'
+import UserSearch from './userSearch'
 
 const Wallet = () => {
     return(
-        <ListTransactions/>
+        <UserSearch/>
     )
 }
 
