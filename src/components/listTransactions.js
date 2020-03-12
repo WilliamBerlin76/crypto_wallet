@@ -3,7 +3,6 @@ import axios from 'axios'
 
 const ListTransactions = props => {
     const [transactions, setTransactions] = useState([])
-    const [balance, setBalance] = useState([])
     useEffect(() => {
         
         axios.get('http://localhost:5000/chain')
@@ -12,7 +11,6 @@ const ListTransactions = props => {
                 let chain = res.data.chain
                 chain.map(block => {
                     block.transactions.map(trans => {
-                        console.log(trans.recipient, props.user)
                         transactions.push(trans) 
                     })
                 })
@@ -22,8 +20,8 @@ const ListTransactions = props => {
                 console.log('FROM LISTTRANSACTIONS', err)
             })
 
-    },[props.user])
-    // console.log(transactions)
+    },[])
+
     const userTransactions = transactions.filter(trans => {
         return trans.recipient === props.user || trans.sender === props.user
     })
