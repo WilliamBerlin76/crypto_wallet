@@ -7,20 +7,21 @@ const ListTransactions = props => {
         
         axios.get('http://localhost:5000/chain')
             .then(res => {
-                // setUserTransactions([])
                 let chain = res.data.chain
+                const transArr = []
                 chain.map(block => {
+                    
                     block.transactions.map(trans => {
-                        transactions.push(trans) 
+                        transArr.push(trans)
                     })
                 })
-                
+                setTransactions(transArr)
             })
             .catch(err => {
                 console.log('FROM LISTTRANSACTIONS', err)
             })
 
-    },[])
+    },[props.user])
 
     const userTransactions = transactions.filter(trans => {
         return trans.recipient === props.user || trans.sender === props.user
