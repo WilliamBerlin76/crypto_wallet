@@ -22,6 +22,7 @@ const UserSearch = props => {
     const submitDefaultUser = e => {
         e.preventDefault()
         setSearchUser(defaultUser)
+        setDefaultUser('')
     }
     return(
         <>

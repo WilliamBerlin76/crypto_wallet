@@ -8,14 +8,14 @@ const ListTransactions = props => {
         axios.get('http://localhost:5000/chain')
             .then(res => {
                 let chain = res.data.chain
-                const transArr = []
+                const userTransArr = []
                 chain.map(block => {
                     
                     block.transactions.map(trans => {
-                        transArr.push(trans)
+                        if (trans.recipient === props.user || trans.sender === props.user) userTransArr.push(trans)
                     })
                 })
-                setTransactions(transArr)
+                setTransactions(userTransArr)
             })
             .catch(err => {
                 console.log('FROM LISTTRANSACTIONS', err)
@@ -23,13 +23,10 @@ const ListTransactions = props => {
 
     },[props.user])
 
-    const userTransactions = transactions.filter(trans => {
-        return trans.recipient === props.user || trans.sender === props.user
-    })
     let getCoin = 0
     let giveCoin = 0
-    userTransactions.forEach(item => {
-        props.user == item.recipient ?
+    transactions.forEach(item => {
+        props.user === item.recipient ?
         getCoin += item.amount
         :
         giveCoin += item.amount
@@ -37,9 +34,10 @@ const ListTransactions = props => {
     
     return (
         <>  
-            <h3>Balance: {getCoin - giveCoin}</h3>
-            <p>transaction list</p>
-            {userTransactions.map(item => {
+            <h3>{props.user}</h3>
+            <h4>Balance: {getCoin - giveCoin}</h4>
+            <h5>Transactions:</h5>
+            {transactions.map(item => {
                 return(
                     <>
                         <p>to: {item.recipient}</p>
