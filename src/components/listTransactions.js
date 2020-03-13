@@ -23,19 +23,18 @@ const ListTransactions = props => {
 
     },[props.user])
 
-    let getCoin = 0
-    let giveCoin = 0
+    let coins = 0
     transactions.forEach(item => {
         props.user === item.recipient ?
-        getCoin += item.amount
+        coins += item.amount
         :
-        giveCoin += item.amount
+        coins -= item.amount
     })
     
     return (
         <>  
             <h3>{props.user}</h3>
-            <h4>Balance: {getCoin - giveCoin}</h4>
+            <h4>Balance: {coins}</h4>
             <h5>Transactions:</h5>
             {transactions.map(item => {
                 return(
